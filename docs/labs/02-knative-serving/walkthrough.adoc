@@ -287,7 +287,7 @@ cd projects/lab-01/
 ----
 kamel run MeterConsumer.java --namespace {namespace} --dev
 ----
-. The '--dev' parameter means you'll get to see the logs in the terminal while it's running. If it fails, just press CTRL-C to kill the program.
+The '--dev' parameter means you'll get to see the logs in the terminal while it's running. If it fails, just press CTRL-C to kill the program.
 . Give it a couple of minutes. In developer view console, A new Camel serverless application will apear.
 +
 image:images/08-camelk-serverless-up.png[Camel K serverless APP]
