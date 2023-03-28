@@ -272,7 +272,10 @@ After gaining familiarity with the **OpenShift topology** and the available serv
 
 TL;DR **Camel K** and **Quarkus** are tools that help developers create software applications more easily and efficiently.
 
+
+
 ---
+
 
 ===== #Camel K#
 
