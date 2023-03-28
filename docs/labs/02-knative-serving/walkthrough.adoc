@@ -272,18 +272,21 @@ After gaining familiarity with the **OpenShift topology** and the available serv
 
 TL;DR **Camel K** and **Quarkus** are tools that help developers create software applications more easily and efficiently.
 
-
-
----
-
-
 ===== #Camel K#
 
-A program that helps developers **connect different software systems together**. It makes it easier for different parts of an application to **communicate** with each other.
+``Camel K`` is a program that helps developers make different parts of an application talk to each other. It does this by using a language called ``Java`` to create an **API** (**A**pplication **P**rogramming **I**nterface).
 
-Give me an example!
+**Give me an example!**
 
-Let's say you have a **database** and an **application** that needs to access that **database**, such as our "**Meter Real-time Sensor Data**" app. In this scenario, Camel K can assist the application in communicating with the database by generating an **API**. Instead of directly connecting to the database, the application can interact with the API endpoints to obtain and store the necessary information to the database.
+Let's say you have a database that stores important information, such as our "Meter Real-Time Sensor Data" application we created to support our pretend scenario at the beginning of this workshop.
+
+That application needs to access that database to **read** and **store** data. ``Camel K`` can help the application talk to the database by creating an **API**. This means that the application can interact with the API instead of directly connecting to the database, making it easier to access the information it needs.
+
+**But why??? It sounds like an extra step.**
+
+You are absolutely correct. It does add another step and adds more complexity into our architecture rather than just talking to the database directly. But ``Camel K`` allows us to add more "routes" to the mix as you will see later in this lab when you look at the ``Camel K`` **Java** code.
+
+For now, review the reference architecture again. See how the application sends data to ``Camel K``, but the data goes to an SQL database **and** Kafka? ``Camel K`` can injest the data from the application and send to multiple routes all in a few lines of **Java** code! A can add/remove routes at a later time in just a few more lines of **Java** code.
 
 ===== #Quarkus#
 
