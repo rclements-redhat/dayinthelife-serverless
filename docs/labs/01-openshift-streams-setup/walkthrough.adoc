@@ -9,7 +9,6 @@
 :cloud-console: https://console.redhat.com/
 :experimental:
 :icons: font
-:icon-set: far
 :source-highliter: highlight.js
 
 
@@ -229,9 +228,9 @@ You'll use the link:https://github.com/edenhill/kafkacat[kcat, window="_blank"] 
 image::images/dayinthelife-workspace.png[Kafka permissions being assigned]
 +
 . If you don't have your terminal tab open:
-.. Navigate to icon:bars[] > Terminal > New Terminal
+.. Navigate to Menu > Terminal > New Terminal
 +
-Alternatively, you can use the hotkey kbd:[CTRL+SHIFT+`]
+Alternatively, you can use the hotkey `CTRL+SHIFT+`
 +
 It's the backtick, which looks like the reverse single-quote.
 +
