@@ -7,6 +7,11 @@
 :product-name: Streams for Apache Kafka
 :codeready-url: https://devspaces.{openshift-app-host}/
 :cloud-console: https://console.redhat.com/
+:experimental:
+:icons: font
+:icon-set: far
+:source-highliter: highlight.js
+
 
 = {title}
 
@@ -28,7 +33,7 @@ Managing Kafka is a specialized task. Red Hat OpenShift Streams for Apache Kafka
 
 [time=5]
 == Accessing OpenShift {product-name}
-
+'''
 . Log in to the Red Hat Hybrid Cloud Console at link:{cloud-console}[console.redhat.com, window="_blank"].
 +
 [NOTE]
@@ -139,20 +144,49 @@ Follow these steps to provide your new Service Account with broad permissions:ap
 
 . Navigate to the *Kafka Instances* page.
 . Click on the name of your Kafka instance to view the instance *Dashboard*.
-. Select the *Access* tab. The permissions configured for this Kafka instance and Service Accounts are displayed.
+. Select the *Permissions* tab. The permissions configured for this Kafka instance and Service Accounts are displayed.
 +
-image::images/04-kafka-permissions.png[Kafka instance permissions]
+image::images/04-kafka-permissions-updated.png[Kafka instance permissions]
 . Click the *Manage access* button. A dialog is displayed.
 . Select *All accounts* from the *Account* dropdown.
 +
 image::images/041-kafka-all-accounts.png[Kafka instance permissions]
 . Click *Next*. A dialog containing *Review existing permissions* and *Assign permissions* sections is displayed.
-. Configure the permissions as shown in the *Assign permissions* section of the dialog.
+. Click on the link *Review existing permissions* and *Assign permissions* links to open up the details for each.
 +
-image::images/05-kafka-assign-permissions.png[Kafka permissions being assigned]
-. Click *Save*. The new permissions should be reflected on the *Access* page.
+If you review the permissions, you'll notice that there have been some permissions already assigned. However, those permissions do not allow read or write access access. Let's go ahead and add read/write access in the next steps.
 +
-image::images/07-kafka-assigned-permissions.png[Kafka permissions assigned]
+. Click on the *down arrow \/* of the *Add Permission* button at the very bottom in the *Assign permissions* section and select "Consume from a topic".
++
+image::images/08-kafka-permissions.png[Kafka permissions being assigned]
++
+. Repeat the process that you just completed in the previous step, but this time click on *Produce to a topic* instead.
++
+This will add *write* access permissions to the *Topic*.
++
+image::images/09-kafka-permissions.png[Kafka permissions being assigned]
++
+. Click directly on the *Add Permission* button this time, not on the down arrow. This will allow you to add a single permission.
++
+image::images/11-kafka-permissions.png[Kafka permissions being assigned]
++
+. Select *Transactional ID* for the type, and select *All* for the operation.
++
+At this point, you should have four (4) new permissions as shown in the screenshot below:
++
+image::images/10-kafka-permissions.png[Kafka permissions being assigned]
++
+. Click on the *Enter name* input box for each permission and type an *asterix* * and click the **Create "*****"** option that appears.
++
+Repeat this process for each the four (4) added permissions.
++
+When completed, your permissions should look like the following:
++
+image::images/12-kafka-permissions.png[Kafka permissions being assigned]
+
+. Click *Save*. The new permissions should be reflected on the *Permissions* page.
++
+image::images/13-kafka-permissions.png[Kafka permissions assigned]
 +
 [NOTE]
 ====
@@ -191,35 +225,53 @@ You'll use the link:https://github.com/edenhill/kafkacat[kcat, window="_blank"] 
 
 . Navigate back to the link:{codeready-url}[OpenShift Dev Spaces Workspace, window="_blank"] tab
 . If you haven't done it, open the workspace named `dayinthelife-workspace`.
++
+image::images/dayinthelife-workspace.png[Kafka permissions being assigned]
++
 . If you don't have your terminal tab open:
-.. Click on the *Menu* (_hamburger icon_) on the right side panel.
-.. Expand the *Terminal* folder.
-.. Click on *New terminal*.
-. Run the following command to connect to your Kafka instance and list topic metadata:
+.. Navigate to icon:bars[] > Terminal > New Terminal
++
+Alternatively, you can use the hotkey kbd:[CTRL+SHIFT+`]
++
+It's the backtick, which looks like the reverse single-quote.
++
+image::images/dayinthelife-workspace-terminal-1.png[Open Terminal window]
++
+If it opened succesfully, you should have a split screen at the bottom with a linux prompt. The terminal window looks like the following screenshot:
++
+image::images/dayinthelife-workspace-terminal-2.png[Terminal window]
++
+Remember in the previous sections, you created a Kafka user and generated a *Client ID* and *Client secret*?
+
+image::images/kafka-client-id-and-secret.png[Kafka client ID and secret]
+
+[NOTE]
+Do you recall your commitment to having "copied the client ID and secret"? I trust that you followed through on your commitment because in the upcoming section, we will be requiring these values.
+
+. Run the following commands to connect to your Kafka instance and list topic metadata:
 +
 [NOTE]
-====
 Don't forget to replace the `<replace-me>` part of the command with the values you previously wrote down.
-====
-.. Export the Bootstrap server:
+
+.. **Export the Bootstrap server**
 +
 [source,bash,subs="attributes+"]
 ----
 export BOOTSTRAP_SERVER=<replace-me>
 ----
-.. Export the Client Id:
+.. **Export the Client ID**
 +
 [source,bash,subs="attributes+"]
 ----
 export CLIENT_ID=<replace-me>
 ----
-.. Export the Client Id:
+.. **Export the Client Secret**
 +
 [source,bash,subs="attributes+"]
 ----
 export CLIENT_SECRET=<replace-me>
 ----
-.. Finally run the kcat command:
+.. **Finally run the ``kcat`` command**
 +
 [source,bash,subs="attributes+"]
 ----
