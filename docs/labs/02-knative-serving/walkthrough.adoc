@@ -366,10 +366,18 @@ However, in summary:
 Both frameworks have their own strengths and use cases, and the choice between them will depend on the specific requirements of your application.
 
 === Define and Build the API
-GitHub updated sources (ignore these links unless you run into issue later)
-https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/MeterConsumer.java[MeterConsumer.java]
-https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/meters.properties[meter.properties]
+**IMPORTANT**
 
+First, we need to update your ``MeterData.java`` and and ``meter.properties`` file with some new, updated code.
+
+. Replace EVERYTHING in your currnet ``MeterData.java`` file with the content at this link: https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/MeterConsumer.java[MeterConsumer.java]
++
+Ensure you save the file.
+
+. Replace EVERYTHING in your current ``meter.properties`` file with the content at this link: https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/meters.properties[meter.properties]
++
+Ensure you save the file.
++
 . Navigate to your workspace in link:{codeready-url}[OpenShift Dev Spaces, window="_blank"].
 . Expand the *projects/lab-01* folder.
 . Open the *openapi-spec.yaml* file.
