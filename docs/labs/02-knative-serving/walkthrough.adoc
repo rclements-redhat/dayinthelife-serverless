@@ -270,9 +270,23 @@ Your now ready to deploy applications that connect to your Managed Kafka cluster
 
 After gaining familiarity with the **OpenShift topology** and the available services, and setting up a **Kafka topic** for data ingestion, the next step is to construct and launch the **REST API**. The REST API is developed utilizing **Camel K** and **Quarkus**.
 
-TL;DR **Camel K** and **Quarkus** are tools that help developers create software applications more easily and efficiently.
+In this next section, we've made **every effort** to present the information in simple terms for **non-developers to comprehend**. _Don't tell the geeks we said this_, but the truth is, #technology isn't complicated#, but the terminology and language used by some experts can make it seem that way.
+
+For example: "Serverless containers using Knaive and Camel-K and Quarkus in a hybrid-cloud federated architecture."
+
+_Come on now_, that's **not helping anyone** except for the people who already know what those things are.
+
+
+They may do this to sound intelligent or knowledgeable, but it only creates confusion and difficulty for everyone else. The information below is is every day English. If you want more clarification on any of the technologies presented, please ask your presenters and they'll be glad to help.
+
+
+[NOTE]
+
+Even if you choose not to read everything about Camel K, Quarkus, and Knative below, it won't hinder your ability to complete the lab. However, we've included information on these technologies to enhance your understanding and make you a more knowledgeable person in the field of technology. For that reason, we encourage you to take a few moments and learn about these fascinating technologies. 
 
 ===== #Camel K#
+
+**TL;DR** ``Camel K`` is a tool that help developers integrate software applications more easily and efficiently.
 
 ``Camel K`` is a program that helps developers make different parts of an application talk to each other. It does this by using a language called **Java** to create an **API** (**A**pplication **P**rogramming **I**nterface).
 
@@ -289,6 +303,11 @@ _You raise a valid point._ Using ``Camel K`` does add an extra step and can make
 image:images/camel-k-ref-arch.png[Camel-K reference architecture]
 
 If you review the **reference architecture** again, you'll notice that the application sends data to ``Camel K``, which then sends it to both an **SQL database** and **Kafka**. With ``Camel K``, we can easily ingest the data from the application and send it to **multiple routes** using just a few lines of Java code. We can also add or remove routes later on with just a few more lines of Java code.
+
+In the past, developers had to write many lines of code and wrestle with integrations with each place they wanted to send their code. Camel K is a modern way to do more in less time and less hassle.
+
+There, now you know all you need to know about ``Camel K``. _It's literally the swiss army knife of integrations._
+
 
 ===== #Quarkus#
 
