@@ -24,9 +24,6 @@ components:
       che-code.eclipse.org/contribute-cpuLimit: true
       che-code.eclipse.org/contribute-cpuRequest: true
       che-code.eclipse.org/contribute-endpoint/che-code: 3100
-      che-code.eclipse.org/contribute-endpoint/code-redirect-1: 13131
-      che-code.eclipse.org/contribute-endpoint/code-redirect-2: 13132
-      che-code.eclipse.org/contribute-endpoint/code-redirect-3: 13133
       che-code.eclipse.org/contribute-entry-point: true
       che-code.eclipse.org/contribute-memoryLimit: true
       che-code.eclipse.org/contribute-memoryRequest: true
