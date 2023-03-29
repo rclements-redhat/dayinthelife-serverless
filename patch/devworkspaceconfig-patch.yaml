@@ -1,0 +1,8 @@
+spec:
+  template:
+    projects:
+      - git:
+          remotes:
+            origin: >-
+              https://github.com/rclements-redhat/dayinthelife-serverless.git#
+        name: International-Incorporated

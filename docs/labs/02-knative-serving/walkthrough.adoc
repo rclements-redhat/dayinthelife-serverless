@@ -184,7 +184,7 @@ image::images/rhoas-login-token.png[rhoas login command]
 +
 [source,bash,subs="attributes+"]
 ----
-export RHOAS_TELEMETRY=true rhoas login --token $TOKEN
+RHOAS_TELEMETRY=true rhoas login --token $TOKEN
 ----
 +
 It will look like this:
@@ -212,6 +212,7 @@ You will see a success message similar to this:
 ----
 rhoas kafka use
 ----
++
 image::images/rhoas-kafka-use.png[rhoas kafka use]
 . Connect your Managed Kafka and OpenShift Project:
 +
@@ -282,7 +283,7 @@ They may do this to sound intelligent or knowledgeable, but it only creates conf
 
 [NOTE]
 
-Even if you choose not to read everything about Camel K, Quarkus, and Knative below, it won't hinder your ability to complete the lab. However, we've included information on these technologies to enhance your understanding and make you a more knowledgeable person in the field of technology. For that reason, we encourage you to take a few moments and learn about these fascinating technologies. 
+Even if you choose not to read everything about Camel K, Quarkus, and Knative below, it won't hinder your ability to complete the lab. However, we've included information on these technologies to enhance your understanding and make you a more knowledgeable person in the field of technology. For that reason, we encourage you to take a few moments and learn about these fascinating technologies. **If you do not want to read it all and only want to complete the workshop, then scroll down to section 3.3.**
 
 ===== #Camel K#
 
@@ -361,11 +362,8 @@ However, in summary:
 - ``Quarkus`` is focused on **optimizing Java applications for cloud-native architectures**
 - ``Camel-K`` is focused on **simplifying the process of building and deploying event-driven and message-based applications**.
 
+
 Both frameworks have their own strengths and use cases, and the choice between them will depend on the specific requirements of your application.
-
-=== View the toplogy in developer view
-
-Let's take a moment to review the topology in the developer view before we proceed with creating new services and defining our new REST API using Camel-K and Quarkus.
 
 === Define and Build the API
 GitHub updated sources (ignore these links unless you run into issue later)
@@ -399,7 +397,7 @@ To build the REST API:
 
 The *MeterConsumer.java* file defines a link:https://camel.apache.org/manual/latest/java-dsl.html[Camel Route using the Java DSL, window="_blank"].
 
-The first line of this file contains a `camel-k` directive. This directive defines options that are used by Camel K when it builds and deploys the Camel Route. For example, it references the *openapi-spec.yaml* file to define the REST API endpoint, and the *rh-cloud-services-service-account* Secret to connect to your Managed Kafka cluster.
+The first nineteen lines of this file contains `Camel-K` directives. These directives define options that are used by `Camel-K`` when it builds and deploys the Camel Route. For example, it references the *openapi-spec.yaml* file to define the REST API endpoint, and the *rh-cloud-services-service-account* Secret to connect to your Managed Kafka cluster.
 
 
 . Open the *meters.properties* file and replace the *camel.component.kafka.brokers* value with your Managed Kafka bootstrap server URL. 
@@ -457,6 +455,10 @@ http://meter-consumer-{namespace}.{openshift-app-host}/meter/status \
       }
 '
 ----
++
+**^^ Be careful not to miss the last single quote `'` on the last line in your copy/paste.**
++
+**^^ It's hiding from you and will cause the above step not to work if you miss it!**
 
 . Fetch the inserted result, from the database:
 +
@@ -464,6 +466,10 @@ http://meter-consumer-{namespace}.{openshift-app-host}/meter/status \
 ----
 oc exec $(oc get pods -o custom-columns=POD:.metadata.name --no-headers -l app=iot-psql) -- bash -c 'psql -d $POSTGRES_DB -U $POSTGRES_USER -c "select * from meter_update;"'
 ----
++
+[NOTE]
+
+If you get an error after running the above command, ensure you are switched into the correct namespace. You can switch into the correct namespace by typing ``oc project --user {user-username}``
 +
 image:images/10-db-result.png[PostgreSQL Query Output]
 . Return to the link:{openshift-host}/topology/ns/{namespace}?view=graph[OpenShift Topology View, window="_blank"] and wait for the *meter-consumer* Pod to scale down to zero. You'll know this happened when the blue circle turns white.

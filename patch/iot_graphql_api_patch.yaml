@@ -1,0 +1,7 @@
+spec:
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: "s2i-nodejs12:latest"
+      pullSecret: null

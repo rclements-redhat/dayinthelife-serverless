@@ -1,0 +1,21 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: s2i-nodejs12
+  namespace: _NAMESPACE_
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: latest
+      annotations:
+        openshift.io/imported-from: registry.access.redhat.com
+      from:
+        kind: DockerImage
+        name: >-
+          registry.access.redhat.com/ubi8/nodejs-12@sha256:41de9a34a8adc698b43444ee5bb9e23ba4125f09efa656da60a3cf48af945ffc
+      generation: 6
+      importPolicy:
+        importMode: Legacy
+      referencePolicy:
+        type: Source
