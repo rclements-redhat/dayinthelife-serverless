@@ -1,0 +1,104 @@
+schemaVersion: 2.1.0
+metadata:
+  name: dayinthelife-serverless
+  namespace: admin-devspaces
+attributes:
+  che-theia.eclipse.org/sidecar-policy: mergeImage
+  controller.devfile.io/devworkspace-config:
+    name: devworkspace-config
+    namespace: openshift-operators
+  controller.devfile.io/storage-type: per-user
+  metadata-name-field: generateName
+  metadata-name-original-value: dayinthelife-serverless
+projects:
+  - attributes:
+      source-origin: branch
+    git:
+      checkoutFrom:
+        revision: kamel_1.8.2
+      remotes:
+        origin: 'https://github.com/rclements-redhat/dayinthelife-serverless.git'
+    name: international-incorporated
+components:
+  - attributes:
+      che-code.eclipse.org/contribute-cpuLimit: true
+      che-code.eclipse.org/contribute-cpuRequest: true
+      che-code.eclipse.org/contribute-endpoint/che-code: 3100
+      che-code.eclipse.org/contribute-endpoint/code-redirect-1: 13131
+      che-code.eclipse.org/contribute-endpoint/code-redirect-2: 13132
+      che-code.eclipse.org/contribute-endpoint/code-redirect-3: 13133
+      che-code.eclipse.org/contribute-entry-point: true
+      che-code.eclipse.org/contribute-memoryLimit: true
+      che-code.eclipse.org/contribute-memoryRequest: true
+      che-code.eclipse.org/contribute-volume-mount/checode: /checode
+      che-code.eclipse.org/contributed-container: universal-developer-image
+    container:
+      command:
+        - /checode/entrypoint-volume.sh
+      cpuLimit: 500m
+      cpuRequest: 30m
+
+      endpoints:
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            cookiesAuthEnabled: true
+            discoverable: false
+            type: main
+            urlRewriteSupported: true
+          exposure: public
+          name: che-code
+          protocol: https
+          secure: false
+          targetPort: 3100
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            discoverable: false
+            urlRewriteSupported: false
+          exposure: public
+          name: code-redirect-1
+          protocol: http
+          targetPort: 13131
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            discoverable: false
+            urlRewriteSupported: false
+          exposure: public
+          name: code-redirect-2
+          protocol: http
+          targetPort: 13132
+        - attributes:
+            contributed-by: che-code.eclipse.org
+            discoverable: false
+            urlRewriteSupported: false
+          exposure: public
+          name: code-redirect-3
+          protocol: http
+          targetPort: 13133
+      env:
+        - name: MAVEN_CONFIG
+          value: ''
+        - name: JAVA_OPTS
+          value: >-
+            -XX:MaxRAMPercentage=50.0 -XX:+UseParallelGC
+            -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20
+            -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+            -Dsun.zip.disableMemoryMapping=true -Xms20m
+            -Djava.security.egd=file:/dev/./urandom -Duser.home=/home/user
+        - name: MAVEN_OPTS
+          value: $(JAVA_OPTS)
+        - name: CHE_DASHBOARD_URL
+          value: 'https://devspaces.apps.cluster-dlpft.dlpft.sandbox2813.opentlc.com'
+        - name: CHE_PLUGIN_REGISTRY_URL
+          value: 'https://devspaces.apps.cluster-dlpft.dlpft.sandbox2813.opentlc.com/plugin-registry/v3'
+        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+          value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
+        - name: OPENVSX_REGISTRY_URL
+          value: 'https://open-vsx.org'
+      image: 'quay.io/redhatintegration/rhi-tools:latest'
+      memoryLimit: 1.88G
+      memoryRequest: 256Mi
+      sourceMapping: /projects
+      volumeMounts:
+        - name: checode
+          path: /checode
+    name: universal-developer-image
