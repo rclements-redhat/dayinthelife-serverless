@@ -20,6 +20,7 @@ projects:
         origin: 'https://github.com/rclements-redhat/dayinthelife-serverless.git'
     name: international-incorporated
 components:
+  - attributes:
     container:
       command:
         - /checode/entrypoint-volume.sh
