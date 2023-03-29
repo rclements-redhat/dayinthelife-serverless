@@ -288,43 +288,89 @@ Even if you choose not to read everything about Camel K, Quarkus, and Knative be
 
 **TL;DR** ``Camel K`` is a tool that help developers integrate software applications more easily and efficiently.
 
-``Camel K`` is a program that helps developers make different parts of an application talk to each other. It does this by using a language called **Java** to create an **API** (**A**pplication **P**rogramming **I**nterface).
+``Camel K`` is a program that helps developers make different parts of an application talk to each other. It does this by using a language called **Java** to create an **API** (**A**pplication **P**rogramming **I**nterface). Camel is built on top of the ``Apache Camel project``.
+
+**So what't the K?**
+
+The **K** stands for **Kubernetes**! Camel-"**K**" provides a Kubernetes-native integration platform that is used to integrate services in many environments! Since we're using ``Knaive`` in this project, which is a "serverless" container technology (more on this later,) we need to use ``Camel K`` instead of ``Apache Camel``. _Make sense so far?_
 
 **Give me an example!**
 
-Let's say you have a database that stores important information, such as our "Meter Real-Time Sensor Data" application we created to support our pretend scenario at the beginning of this workshop.
+Let's say you have a database that stores important information, such as our "**Meter Real-Time Sensor Data**" application we created to support our pretend scenario at the beginning of this workshop.
 
-That application needs to access that database to **read** and **store** data. ``Camel K`` can help the application talk to the database by creating an **API**. This means that the application can interact with the API instead of directly connecting to the database, making it easier to access the information it needs.
+That application needs to access a database to **read** and **store** data. ``Camel K`` can help the application talk to the database by easily creating a custom **API**. This means that the application can interact with the **API** instead of directly connecting to the database, making it easier to access the information it needs without a lot of complexity.
 
 **But why??? It sounds like an extra step.**
 
 _You raise a valid point._ Using ``Camel K`` does add an extra step and can make our architecture more complex instead of directly connecting to the database. However, ``Camel K`` offers the **advantage** of being able to add more "**routes**" to our architecture, which you'll see later in this lab when you look at the Java code.
 
-image:images/camel-k-ref-arch.png[Camel-K reference architecture]
+Here's our reference architecture with some steps drawn on it. We'll discuss these steps below.
 
-If you review the **reference architecture** again, you'll notice that the application sends data to ``Camel K``, which then sends it to both an **SQL database** and **Kafka**. With ``Camel K``, we can easily ingest the data from the application and send it to **multiple routes** using just a few lines of Java code. We can also add or remove routes later on with just a few more lines of Java code.
+Here is what is happening in the reference architecture below:
+
+. Our "**Meter Real-time Sensor Data**" app sends data to ``Camel K``, such as the ``meter ID`` and the ``meter status``
++
+"_Hi I'm meter ``ID 9001``, and I'm ``online``!_"
++
+. ``Camel-K`` then **writes** the ``meter ID`` and ``meter status`` to the **SQL database**
+. ``Camel-K`` then **reads** from the **SQL database** to gather a bit more information about the meter that just reported its status, such as longitude and latitude of the meter.
+. ``Camel-K`` sends the ``meter ID``, ``meter status``, ``meter longitude`` and ``meter latitude`` to **Kafka**
++
+By sending it to **Kafka**, another app can read that data on the **Kafka stream**. But, Kafka doesn't store data permanently. So, that's why we also stored it in the **SQL database** for long-term storage.
++
+image:images/camel-k-ref-arch.png[Camel-K reference architecture]
++
+Do you see why ``Camel K`` makes sense here? It's been programmed to do a lot of work with minimum lines of code and effort from a developer.
+
+With ``Camel-K``, we can easily ingest the data from the application and send it to **multiple routes** using just a few lines of Java code. We can also add or remove routes later on with just a few more lines of Java code.
+
+It's okay if you don't undestand SQL database queries or Java code. The code below can look odd to people who don't develop code. The point is, it is trivial to add and remove routes once you have a few copy/paste code snippets stored away!
+
+image::images/camel-k-routes-code.png[Camel-K routes in code]
 
 In the past, developers had to write many lines of code and wrestle with integrations with each place they wanted to send their code. Camel K is a modern way to do more in less time and less hassle.
 
 There, now you know all you need to know about ``Camel K``. _It's literally the swiss army knife of integrations._
 
-
 ===== #Quarkus#
 
-Quarkus is a tool that helps developers build software applications faster and with less code. It makes it easier for developers to write software that is efficient and runs smoothly. Quarkus can help developers build many types of applications, from simple websites to complex programs used by businesses and organizations.
+``Quarkus`` is a tool that helps developers build Java applications for **cloud-native** architectures faster and with less code.
 
-So in this case, the developer is using Camel K and Quarkus to build a REST API, which is a program that helps different software systems communicate with each other over the internet.
+Remember what we said about buzzwords? Cloud-native is just a buzzword, or marketing technical jargon for "**containers**." We wanted to add that in there because you'll be hearding the buzzword **cloud-native** a lot in your _application modernization_ journey. _Ugh_, there's **another** buzzword - I'm sorry!
 
-image:images/061-camel-scenario.png[Camel Scenario]
-GitHub updated sources (ignore unless run into issue later)
-https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/MeterConsumer.java[MeterConsumer.java]
-https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/meters.properties[meter.properties]
+**Application modernization** is another way to simply say '_Convert the old-style VMs to modern container architecture._'
+
+``Quarkus`` it makes it easier for developers to write software that is efficient and runs smoothly on containers. That is, Java applications, because Java programming is very popular in corporate environments.
+
+**Please explain what you mean.**
+
+Okay! Java programs have been typically have had a **huge memory footprint** for even printing something as simple the _rites-of-passage_ program that most budding programmers create: The '**Hello World!**' program. Java programs are also **very slow**. These are two attributes that don't mesh well with the point of containers - which are supposed to have a **low CPU and memory footprint** and **spin up and down quickly**.
+
+What is the solution? ``Quarkus`` is the solution because it has been specifically created to solve these problems with Java programs. Quakus allows Java programs to run leaner with less of a CPU and memory footprint and spin up and down quicker than methods in the past.
+
+``Quarkus`` can help developers build many types of applications, from simple websites to complex programs used by businesses and organizations.
+
+Lastly, ``Quarkus`` can also integrate programs and routes like ``Camel-K``. There is a lot of overlap between the two technologies right now.
+
+===== #Quarkus vs Camel-K#
+
+A deep-dive comparison between the two technologies is beyond the scope of this workshop.
+
+However, in summary:
+
+- ``Quarkus`` is focused on **optimizing Java applications for cloud-native architectures**
+- ``Camel-K`` is focused on **simplifying the process of building and deploying event-driven and message-based applications**.
+
+Both frameworks have their own strengths and use cases, and the choice between them will depend on the specific requirements of your application.
 
 === View the toplogy in developer view
 
 Let's take a moment to review the topology in the developer view before we proceed with creating new services and defining our new REST API using Camel-K and Quarkus.
 
 === Define and Build the API
+GitHub updated sources (ignore these links unless you run into issue later)
+https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/MeterConsumer.java[MeterConsumer.java]
+https://raw.githubusercontent.com/rclements-redhat/dayinthelife-serverless/kamel_1.8.2/projects/lab-01/meters.properties[meter.properties]
 
 . Navigate to your workspace in link:{codeready-url}[OpenShift Dev Spaces, window="_blank"].
 . Expand the *projects/lab-01* folder.
